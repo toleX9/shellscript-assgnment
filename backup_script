@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Check if both source and destination directories are provided
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 source_directory backup_directory"
+  exit 1
+fi
+
+# Get source and destination directories from command line arguments
+source_directory=$1
+backup_directory=$2
+
+# Create a timestamp for the backup file
+timestamp=$(date +"2024-03-05_19-46-11")
+
+# Create a tar archive of the source directory
+tar -czf "$backup_directory/backup_$timestamp.tar.gz" -C "$(dirname "$source_directory")" "$(basename "$source_directory")"
+
+# Extract a tar archive in the backup_directory (just an example, you may not need this line)
+tar -xzf "/home/ubuntu/backup_directory/backup_2024-03-05_19-46-11.tar.gz" -C "/home/ubuntu/restore_directory"
+
+echo "Backup completed successfully."
+
